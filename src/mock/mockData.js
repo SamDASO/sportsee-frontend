@@ -259,3 +259,10 @@ const USER_PERFORMANCE = [
     ],
   },
 ];
+
+export {
+  USER_MAIN_DATA,
+  USER_ACTIVITY,
+  USER_AVERAGE_SESSIONS,
+  USER_PERFORMANCE,
+};

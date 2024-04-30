@@ -1,60 +1,30 @@
-import axios from "axios";
+import { Mock } from "../fetchData/mock.js";
+import { Api } from "../fetchData/api.js";
+import {
+  USER_MAIN_DATA,
+  USER_ACTIVITY,
+  USER_AVERAGE_SESSIONS,
+  USER_PERFORMANCE,
+} from "../mock/mockData.js";
 
 export class DataManagement {
-  constructor(userId) {
+  constructor() {
     this.isMockMode = import.meta.env.VITE_ISMODE_MOCK === "true";
-
-    // API endpoints
-    this.apiUrl = this.isMockMode
-      ? "../mock/mockData.js"
-      : "http://localhost:3000";
-
-    this.userId = userId;
   }
 
-  async userData() {
-    try {
-      const response = await axios.get(`${this.apiUrl}/user/${this.userId}`);
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      throw error;
-    }
-  }
+  getDatas() {
+    let data;
 
-  async activityData() {
-    try {
-      const response = await axios.get(
-        `${this.apiUrl}/user/${this.userId}/activity`
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      throw error;
+    if (this.isMockMode) {
+      data = new Mock({
+        USER_MAIN_DATA,
+        USER_ACTIVITY,
+        USER_AVERAGE_SESSIONS,
+        USER_PERFORMANCE,
+      });
+    } else {
+      data = new Api();
     }
-  }
-
-  async averageSessionsData() {
-    try {
-      const response = await axios.get(
-        `${this.apiUrl}/user/${this.userId}/average-sessions`
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      throw error;
-    }
-  }
-
-  async performanceData() {
-    try {
-      const response = await axios.get(
-        `${this.apiUrl}/user/${this.userId}/performance`
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      throw error;
-    }
+    return data;
   }
 }
