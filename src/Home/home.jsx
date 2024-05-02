@@ -1,25 +1,23 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import style from "./home.module.scss";
-import { DataManagement } from "../fetchData/DataManagement";
+import { DataController } from "../fetchData/DataController";
 
-const Home = () => {
+export const Context = React.createContext();
+
+function Home() {
   //state
 
-  const [userData, setUserData] = useState(null);
+  //const userName = useContext(Context);
+  const [userName, setUserName] = useState(null);
   const { userId } = useParams();
 
-  //behavior
   useEffect(() => {
     const fetchData = async () => {
-      console.log(import.meta.env.MODE);
       try {
-        const dataManagement = new DataManagement();
-        const dataProvider = dataManagement.getDatas();
-        console.log("Fetching data for userId:", userId);
-        const user = await dataProvider.userData(userId);
-        console.log("Received user data:", user);
-        setUserData(user);
+        const dataController = new DataController(userId);
+        const name = await dataController.getUserName();
+        setUserName(name);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -29,14 +27,12 @@ const Home = () => {
   }, [userId]);
 
   return (
-    <div className={style.component}>
-      {userData ? (
-        <h1>Bonjour {userData.userInfos.firstName}</h1>
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
+    <Context.Provider value={userName}>
+      <div className={style.component}>
+        {userName ? <h1>Bonjour {userName}</h1> : <p>Loading...</p>}
+      </div>
+    </Context.Provider>
   );
-};
+}
 
 export default Home;

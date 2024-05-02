@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export class Api {
+export class ApiFetch {
   constructor() {
     // API endpoints
     this.apiUrl = "http://localhost:3000";

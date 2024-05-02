@@ -1,13 +1,25 @@
-export class Mock {
-  constructor(mockData) {
-    this.mockData = mockData;
+import {
+  USER_MAIN_DATA,
+  USER_ACTIVITY,
+  USER_AVERAGE_SESSIONS,
+  USER_PERFORMANCE,
+} from "../mock/mockData.js";
+
+export class MockFetch {
+  constructor() {
+    this.mockData = {
+      USER_MAIN_DATA,
+      USER_ACTIVITY,
+      USER_AVERAGE_SESSIONS,
+      USER_PERFORMANCE,
+    };
   }
 
   async userData(userId) {
     return new Promise((resolve) => {
       setTimeout(() => {
         const user = this.mockData.USER_MAIN_DATA.find(
-          (user) => user.id === userId
+          (user) => user.id == userId
         );
         resolve(user);
       }, 1000);
