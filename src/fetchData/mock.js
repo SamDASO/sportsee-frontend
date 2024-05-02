@@ -17,7 +17,7 @@ export class Mock {
   async activityData() {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve(this.mockData.userActivity);
+        resolve(this.mockData.USER_ACTIVITY);
       }, 1000);
     });
   }
@@ -25,7 +25,7 @@ export class Mock {
   async averageSessionsData() {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve(this.mockData.userAverageSessions);
+        resolve(this.mockData.USER_AVERAGE_SESSIONS);
       }, 1000);
     });
   }
@@ -33,7 +33,7 @@ export class Mock {
   async performanceData() {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve(this.mockData.userPerformance);
+        resolve(this.mockData.USER_PERFORMANCE);
       }, 1000);
     });
   }

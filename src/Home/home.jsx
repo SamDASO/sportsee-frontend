@@ -12,6 +12,7 @@ const Home = () => {
   //behavior
   useEffect(() => {
     const fetchData = async () => {
+      console.log(import.meta.env.MODE);
       try {
         const dataManagement = new DataManagement();
         const dataProvider = dataManagement.getDatas();
