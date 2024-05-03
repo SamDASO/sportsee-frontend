@@ -28,8 +28,19 @@ function Home() {
 
   return (
     <Context.Provider value={userName}>
-      <div className={style.component}>
-        {userName ? <h1>Bonjour {userName}</h1> : <p>Loading...</p>}
+      <div className={style.dashboard}>
+        <div className={style.infoUser}>
+          {userName ? (
+            <h1 className={style.title}>
+              Bonjour <span className={style.name}>{userName}</span>
+            </h1>
+          ) : (
+            <p>Chargement...</p>
+          )}
+          <p className={style.summary}>
+            Félicitation ! Vous avez explosé vos objectifs hier 👏
+          </p>
+        </div>
       </div>
     </Context.Provider>
   );

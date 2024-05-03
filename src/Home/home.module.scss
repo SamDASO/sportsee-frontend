@@ -1,0 +1,29 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  margin: 60px auto;
+}
+
+.infoUser {
+  display: flex;
+  flex-direction: column;
+  gap: 41px;
+}
+
+.title {
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 500;
+  margin: 0;
+
+  & .name {
+    color: #ff0101;
+  }
+}
+
+.summary {
+  margin: 0;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+}
