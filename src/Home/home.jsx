@@ -28,7 +28,7 @@ function Home() {
 
   return (
     <Context.Provider value={userName}>
-      <div className={style.dashboard}>
+      <div className={style.component}>
         <div className={style.infoUser}>
           {userName ? (
             <h1 className={style.title}>
@@ -37,10 +37,16 @@ function Home() {
           ) : (
             <p>Chargement...</p>
           )}
-          <p className={style.summary}>
+          <p className={style.result}>
             Félicitation ! Vous avez explosé vos objectifs hier 👏
           </p>
         </div>
+        <section className={style.dashboard}>
+          <div className={style.graphContainer}>
+            <div className={style.graphs}></div>
+          </div>
+          <aside className={style.summary}></aside>
+        </section>
       </div>
     </Context.Provider>
   );

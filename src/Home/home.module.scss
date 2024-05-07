@@ -1,4 +1,4 @@
-.dashboard {
+.component {
   display: flex;
   flex-direction: column;
   margin: 60px auto;
@@ -21,9 +21,40 @@
   }
 }
 
-.summary {
+.result {
   margin: 0;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
+}
+
+.dashboard {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 77px;
+}
+
+.graphContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 30px;
+  align-items: space-between;
+}
+
+.graphs {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
 }
