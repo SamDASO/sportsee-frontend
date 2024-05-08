@@ -2,7 +2,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: auto;
   gap: 25px;
 }
 
@@ -13,4 +12,16 @@
   min-width: 60px;
   min-height: 60px;
   border-radius: 5px;
+}
+
+.data {
+  color: #282d30;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.dataName {
+  color: #74798c;
+  font-size: 14px;
+  font-weight: 500;
 }
