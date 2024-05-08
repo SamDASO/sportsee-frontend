@@ -1,0 +1,16 @@
+.component {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  gap: 25px;
+}
+
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 60px;
+  min-height: 60px;
+  border-radius: 5px;
+}

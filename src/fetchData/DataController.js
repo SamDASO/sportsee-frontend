@@ -23,4 +23,21 @@ export class DataController {
       throw error;
     }
   }
+
+  async getKeyData() {
+    try {
+      let keyData;
+      if (this.isMockMode) {
+        const userData = await new MockFetch().userData(this.userId);
+        keyData = userData.keyData;
+      } else {
+        const userData = await new ApiFetch().userData(this.userId);
+        keyData = userData.keyData;
+      }
+      return keyData;
+    } catch (error) {
+      console.error("Error fetching KeyData:", error);
+      throw error;
+    }
+  }
 }
