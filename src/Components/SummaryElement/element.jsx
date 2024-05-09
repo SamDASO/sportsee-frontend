@@ -1,12 +1,14 @@
 import PropTypes from "prop-types";
 import style from "./element.module.scss";
 import { useContext } from "react";
-import { Context } from "../../Home/home";
+import { ContextKey } from "../../Home/home";
 
 const SummaryElement = ({ alt, img, color, dataName, data, unit }) => {
-  const userKeyData = useContext(Context);
+  //state
+  const userKeyData = useContext(ContextKey);
   const dataValue = userKeyData[data];
 
+  //render
   return (
     <div className={style.component}>
       <div className={style.logoContainer} style={{ backgroundColor: color }}>

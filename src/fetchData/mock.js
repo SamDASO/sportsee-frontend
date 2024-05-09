@@ -24,21 +24,31 @@ export class MockFetch {
     });
   }
 
-  async activityData() {
+  async activityData(userId) {
     return new Promise((resolve) => {
-      resolve(this.mockData.USER_ACTIVITY);
+      const userActivity = this.mockData.USER_ACTIVITY.find(
+        (user) => user.userId == userId
+      );
+
+      resolve(userActivity.sessions);
     });
   }
 
-  async averageSessionsData() {
+  async averageSessionsData(userId) {
     return new Promise((resolve) => {
-      resolve(this.mockData.USER_AVERAGE_SESSIONS);
+      const userSessions = this.mockData.USER_AVERAGE_SESSIONS.find(
+        (user) => user.userId == userId
+      );
+      resolve(userSessions.sessions);
     });
   }
 
-  async performanceData() {
+  async performanceData(userId) {
     return new Promise((resolve) => {
-      resolve(this.mockData.USER_PERFORMANCE);
+      const userPerformance = this.mockData.USER_PERFORMANCE.find(
+        (user) => user.userId == userId
+      );
+      resolve(userPerformance);
     });
   }
 }

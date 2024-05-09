@@ -15,29 +15,58 @@ import proteinLogo from "../assets/images/protein.svg";
 import carbohydrateLogo from "../assets/images/carbohydrate.svg";
 import fatLogo from "../assets/images/fat.svg";
 
+//userKeyData
+export const ContextKey = React.createContext();
+
+//graphs
+export const ContextActivity = React.createContext();
+
 function Home() {
   //state
-
+  const { userId } = useParams();
   const [userName, setUserName] = useState(null);
   const [userKeyData, setUserKeyData] = useState(null);
-  const { userId } = useParams();
+  const [userActivity, setUserActivity] = useState(null);
 
+  //behavior
   useEffect(() => {
-    const fetchData = async () => {
+    const dataController = new DataController(userId);
+
+    //FetchName//
+    const fetchName = async () => {
       try {
-        const dataController = new DataController(userId);
         const name = await dataController.getUserName();
         setUserName(name);
-
-        const keyData = await dataController.getKeyData();
-        console.log("Key Data:", keyData); // Check the fetched key data
-        setUserKeyData(keyData);
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.error("Error fetching user name:", error);
       }
     };
 
-    fetchData();
+    fetchName();
+
+    //Fetch keyData//
+    const fetchKeyData = async () => {
+      try {
+        const keyData = await dataController.getKeyData();
+        setUserKeyData(keyData);
+      } catch (error) {
+        console.error("Error fetching keyDatas:", error);
+      }
+    };
+
+    fetchKeyData();
+
+    //Fetch Activity//
+    const fetchActivity = async () => {
+      try {
+        const activityData = await dataController.getUserActivity();
+        setUserActivity(activityData);
+      } catch (error) {
+        console.error("Error fetching activity data:", error);
+      }
+    };
+
+    fetchActivity();
   }, [userId]);
 
   return (
@@ -56,14 +85,16 @@ function Home() {
       </div>
       <section className={style.dashboard}>
         <div className={style.graphContainer}>
-          <Activity />
+          <ContextActivity.Provider value={userActivity}>
+            <Activity />
+          </ContextActivity.Provider>
           <div className={style.graphs}>
             <AverageSession />
             <Stats />
             <Goal />
           </div>
         </div>
-        <Context.Provider value={userKeyData}>
+        <ContextKey.Provider value={userKeyData}>
           <aside className={style.summary}>
             {userKeyData && (
               <SummaryElement
@@ -111,11 +142,10 @@ function Home() {
               />
             )}
           </aside>
-        </Context.Provider>
+        </ContextKey.Provider>
       </section>
     </div>
   );
 }
 
 export default Home;
-export const Context = React.createContext();

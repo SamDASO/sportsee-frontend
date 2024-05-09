@@ -40,4 +40,20 @@ export class DataController {
       throw error;
     }
   }
+
+  async getUserActivity() {
+    try {
+      let userActivity;
+
+      if (this.isMockMode) {
+        userActivity = await new MockFetch().activityData(this.userId);
+      } else {
+        userActivity = await new ApiFetch().activityData(this.userId);
+      }
+      return userActivity;
+    } catch (error) {
+      console.error("Error fetching activityData:", error);
+      throw error;
+    }
+  }
 }
