@@ -1,8 +1,7 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import {
   BarChart,
   Bar,
-  Rectangle,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -15,13 +14,29 @@ import { ContextActivity } from "../../../Home/home";
 const Activity = () => {
   //state
   const activityData = useContext(ContextActivity);
+  const [containerWidth, setContainerWidth] = useState(0);
+
+  //behavior
+  useEffect(() => {
+    const updateWidth = () => {
+      const width = document.getElementById("container").offsetWidth; // Assuming the container has an id of 'container'
+      setContainerWidth(width);
+    };
+
+    window.addEventListener("resize", updateWidth);
+    updateWidth();
+
+    return () => {
+      window.removeEventListener("resize", updateWidth);
+    };
+  }, []);
 
   //render
   return (
-    <div className={style.component}>
+    <div id="container" className={style.component}>
       <BarChart
-        width={500}
-        height={300}
+        width={containerWidth}
+        height={320}
         data={activityData}
         margin={{
           top: 5,
@@ -30,20 +45,27 @@ const Activity = () => {
           bottom: 5,
         }}
       >
-        <CartesianGrid strokeDasharray="1 0" />
+        <CartesianGrid vertical={false} strokeDasharray="2 2" />
         <XAxis dataKey="day" />
-        <YAxis orientation="right" stroke="#9B9EAC" />
+        <YAxis
+          orientation="right"
+          stroke="#9B9EAC"
+          axisLine={false}
+          tickLine={false}
+        />
         <Tooltip />
         <Legend />
         <Bar
           dataKey="kilogram"
-          fill="#8884d8"
-          activeBar={<Rectangle fill="pink" stroke="blue" />}
+          barSize={7}
+          fill="#282D30"
+          radius={[3, 3, 0, 0]}
         />
         <Bar
           dataKey="calories"
+          barSize={7}
           fill="#E60000"
-          activeBar={<Rectangle fill="gold" stroke="purple" />}
+          radius={[3, 3, 0, 0]}
         />
       </BarChart>
     </div>
