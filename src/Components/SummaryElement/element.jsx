@@ -1,13 +1,7 @@
 import PropTypes from "prop-types";
 import style from "./element.module.scss";
-import { useContext } from "react";
-import { ContextKey } from "../../Home/home";
 
-const SummaryElement = ({ alt, img, color, dataName, data, unit }) => {
-  //state
-  const userKeyData = useContext(ContextKey);
-  const dataValue = userKeyData[data];
-
+const SummaryElement = ({ alt, img, color, dataName, dataValue, unit }) => {
   //render
   return (
     <div className={style.component}>
@@ -30,7 +24,7 @@ SummaryElement.propTypes = {
   img: PropTypes.any.isRequired,
   color: PropTypes.string.isRequired,
   dataName: PropTypes.string.isRequired,
-  data: PropTypes.string.isRequired,
+  dataValue: PropTypes.any.isRequired,
   unit: PropTypes.string.isRequired,
 };
 

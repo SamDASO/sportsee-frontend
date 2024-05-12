@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import PropTypes from "prop-types";
 import {
   BarChart,
   Bar,
@@ -9,40 +7,17 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import PropTypes from "prop-types";
 import style from "./activity.module.scss";
-import { ContextActivity } from "../../../Home/home";
+import CustomTooltip from "./tooltip";
 
-////customToolTip component////
-
-const CustomTooltip = ({ active, payload }) => {
-  if (active && payload) {
-    return (
-      <div className={style.customTooltip}>
-        <ul className={style.tooltipItemList}>
-          {payload.map((item, index) => (
-            <li key={index} className={style.tooltipItem}>
-              {item.value}
-              {item.dataKey === "kilogram" ? "kg" : "Kcal"}
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
-};
-CustomTooltip.propTypes = {
-  active: PropTypes.bool,
-  payload: PropTypes.arrayOf(PropTypes.object),
-};
-
-//// ////
-
-const Activity = () => {
+const Activity = ({ activityData }) => {
   //state
-  const activityData = useContext(ContextActivity);
-  const formatXAxisTick = (value, index) => {
-    return index + 1;
+  const formatXAxisTick = (value) => {
+    return value.split("-")[2];
   };
+
+  const hideTickNumbers = () => null;
 
   //render
   return (
@@ -50,17 +25,16 @@ const Activity = () => {
       <div className={style.header}>
         <p className={style.title}>Activité quotidienne</p>
         <ul className={style.legend}>
-          <li className={style.legendPoids}>
-            <span className={style.legendText}>Poids (kg)</span>
+          <li className={style.legendText}>
+            <div className={style.markerPds}></div>Poids (kg)
           </li>
-          <li className={style.legendCal}>
-            <span className={style.legendText}>Calories brûlées (kCal)</span>
+          <li className={style.legendText}>
+            <div className={style.markerCal}></div>Calories brûlées (kCal)
           </li>
         </ul>
       </div>
       <ResponsiveContainer width="100%" height={320}>
         <BarChart
-          width={700}
           height={320}
           data={activityData}
           margin={{
@@ -78,7 +52,7 @@ const Activity = () => {
             axisLine={false}
             tickLine={false}
             dataKey="calories"
-            tickFormatter="kilogram"
+            tick={hideTickNumbers}
           />
           <Tooltip content={<CustomTooltip />} />
           <Bar
@@ -97,6 +71,10 @@ const Activity = () => {
       </ResponsiveContainer>
     </div>
   );
+};
+
+Activity.propTypes = {
+  activityData: PropTypes.any,
 };
 
 export default Activity;

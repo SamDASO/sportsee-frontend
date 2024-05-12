@@ -18,9 +18,6 @@ import fatLogo from "../assets/images/fat.svg";
 //userKeyData
 export const ContextKey = React.createContext();
 
-//graphs
-export const ContextActivity = React.createContext();
-
 function Home() {
   //state
   const { userId } = useParams();
@@ -85,64 +82,60 @@ function Home() {
       </div>
       <section className={style.dashboard}>
         <div className={style.graphContainer}>
-          <ContextActivity.Provider value={userActivity}>
-            <Activity />
-          </ContextActivity.Provider>
+          {userActivity && <Activity activityData={userActivity} />}
           <div className={style.graphs}>
             <AverageSession />
             <Stats />
             <Goal />
           </div>
         </div>
-        <ContextKey.Provider value={userKeyData}>
-          <aside className={style.summary}>
-            {userKeyData && (
-              <SummaryElement
-                className={style.calories}
-                alt={"calories"}
-                img={caloriesLogo}
-                color={"#FF00001A"}
-                dataName={"Calories"}
-                data={"calorieCount"}
-                unit={"kCal"}
-              />
-            )}
+        <aside className={style.summary}>
+          {userKeyData && (
+            <SummaryElement
+              className={style.calories}
+              alt={"calories"}
+              img={caloriesLogo}
+              color={"#FF00001A"}
+              dataName={"Calories"}
+              dataValue={userKeyData.calorieCount}
+              unit={"kCal"}
+            />
+          )}
 
-            {userKeyData && (
-              <SummaryElement
-                className={style.protein}
-                alt={"proteines"}
-                img={proteinLogo}
-                color={"#4AB8FF1A"}
-                dataName={"Proteines"}
-                data={"proteinCount"}
-                unit={"g"}
-              />
-            )}
-            {userKeyData && (
-              <SummaryElement
-                className={style.carbohydrate}
-                alt={"glucides"}
-                img={carbohydrateLogo}
-                color={"#FDCC0C1A"}
-                dataName={"Glucides"}
-                data={"carbohydrateCount"}
-                unit={"g"}
-              />
-            )}
-            {userKeyData && (
-              <SummaryElement
-                className={style.fat}
-                alt={"Lipides"}
-                img={fatLogo}
-                color={"#FD51811A"}
-                dataName={"Lipides"}
-                data={"lipidCount"}
-                unit={"g"}
-              />
-            )}
-          </aside>
-        </ContextKey.Provider>
+          {userKeyData && (
+            <SummaryElement
+              className={style.protein}
+              alt={"proteines"}
+              img={proteinLogo}
+              color={"#4AB8FF1A"}
+              dataName={"Proteines"}
+              dataValue={userKeyData.proteinCount}
+              unit={"g"}
+            />
+          )}
+          {userKeyData && (
+            <SummaryElement
+              className={style.carbohydrate}
+              alt={"glucides"}
+              img={carbohydrateLogo}
+              color={"#FDCC0C1A"}
+              dataName={"Glucides"}
+              dataValue={userKeyData.carbohydrateCount}
+              unit={"g"}
+            />
+          )}
+          {userKeyData && (
+            <SummaryElement
+              className={style.fat}
+              alt={"Lipides"}
+              img={fatLogo}
+              color={"#FD51811A"}
+              dataName={"Lipides"}
+              dataValue={userKeyData.lipidCount}
+              unit={"g"}
+            />
+          )}
+        </aside>
       </section>
     </div>
   );

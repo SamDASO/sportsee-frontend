@@ -20,14 +20,31 @@
   justify-content: space-between;
   align-items: center;
   gap: 32px;
-  list-style-type: disc;
+  list-style-type: none;
 
-  & .legendPoids {
-    color: #e60000;
-  }
+  & .legendText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: #74798c;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
 
-  & .legendCal {
-    color: #282d30;
+    & .markerPds {
+      background-color: #282d30;
+      height: 8px;
+      width: 8px;
+      border-radius: 50%;
+    }
+
+    & .markerCal {
+      background-color: #e60000;
+      height: 8px;
+      width: 8px;
+      border-radius: 50%;
+    }
   }
 }
 .legendText {
