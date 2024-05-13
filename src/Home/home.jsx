@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import style from "./home.module.scss";
 import { DataController } from "../fetchData/DataController";
@@ -15,15 +15,13 @@ import proteinLogo from "../assets/images/protein.svg";
 import carbohydrateLogo from "../assets/images/carbohydrate.svg";
 import fatLogo from "../assets/images/fat.svg";
 
-//userKeyData
-export const ContextKey = React.createContext();
-
 function Home() {
   //state
   const { userId } = useParams();
   const [userName, setUserName] = useState(null);
   const [userKeyData, setUserKeyData] = useState(null);
   const [userActivity, setUserActivity] = useState(null);
+  const [averageSessions, setAverageSessions] = useState(null);
 
   //behavior
   useEffect(() => {
@@ -64,6 +62,20 @@ function Home() {
     };
 
     fetchActivity();
+
+    //Fetch Average sessions data//
+
+    const fetchAverageSessions = async () => {
+      try {
+        const averageSessionsData =
+          await dataController.getUserAverageSessions();
+        setAverageSessions(averageSessionsData);
+      } catch (error) {
+        console.error("Error fetching average sessions data:", error);
+      }
+    };
+
+    fetchAverageSessions();
   }, [userId]);
 
   return (
@@ -84,7 +96,7 @@ function Home() {
         <div className={style.graphContainer}>
           {userActivity && <Activity activityData={userActivity} />}
           <div className={style.graphs}>
-            <AverageSession />
+            {averageSessions && <AverageSession data={averageSessions} />}
             <Stats />
             <Goal />
           </div>

@@ -56,4 +56,22 @@ export class DataController {
       throw error;
     }
   }
+
+  async getUserAverageSessions() {
+    try {
+      let averageSessions;
+
+      if (this.isMockMode) {
+        averageSessions = await new MockFetch().averageSessionsData(
+          this.userId
+        );
+      } else {
+        averageSessions = await new ApiFetch().averageSessionsData(this.userId);
+      }
+      return averageSessions;
+    } catch (error) {
+      console.error("Error fetching data from average sessions:", error);
+      throw error;
+    }
+  }
 }

@@ -1,7 +1,7 @@
 import style from "./activity.module.scss";
 import PropTypes from "prop-types";
 
-const CustomTooltip = ({ active, payload }) => {
+const ActivityTooltip = ({ active, payload }) => {
   if (active && payload) {
     return (
       <div className={style.customTooltip}>
@@ -17,9 +17,9 @@ const CustomTooltip = ({ active, payload }) => {
     );
   }
 };
-CustomTooltip.propTypes = {
+ActivityTooltip.propTypes = {
   active: PropTypes.bool,
   payload: PropTypes.arrayOf(PropTypes.object),
 };
 
-export default CustomTooltip;
+export default ActivityTooltip;

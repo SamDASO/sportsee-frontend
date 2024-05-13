@@ -9,7 +9,7 @@ import {
 } from "recharts";
 import PropTypes from "prop-types";
 import style from "./activity.module.scss";
-import CustomTooltip from "./tooltip";
+import ActivityTooltip from "./tooltip";
 
 const Activity = ({ activityData }) => {
   //state
@@ -54,7 +54,7 @@ const Activity = ({ activityData }) => {
             dataKey="calories"
             tick={hideTickNumbers}
           />
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip content={<ActivityTooltip />} />
           <Bar
             dataKey="kilogram"
             barSize={7}
