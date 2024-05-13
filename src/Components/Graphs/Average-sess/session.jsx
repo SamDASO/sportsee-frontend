@@ -43,6 +43,16 @@ const AverageSession = ({ data }) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
+        <text
+          x={258 / 2}
+          y={10}
+          textAnchor="middle"
+          dominantBaseline="hanging"
+          fill="#fff"
+          className={style.title}
+        >
+          Durée moyenne des sessions
+        </text>
         <Line
           type="monotone"
           dataKey="sessionLength"
@@ -65,6 +75,7 @@ const AverageSession = ({ data }) => {
           tickFormatter={getDayName}
           axisLine={false}
           tickLine={false}
+          className={style.xAxis}
         />
         <Tooltip content={<SessionTooltip />} cursor={false} />
       </LineChart>
