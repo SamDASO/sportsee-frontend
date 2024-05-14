@@ -41,6 +41,29 @@ export class DataController {
     }
   }
 
+  async getGoalScore() {
+    try {
+      let goalScore;
+      let userData;
+      if (this.isMockMode) {
+        userData = await new MockFetch().userData(this.userId);
+      } else {
+        userData = await new ApiFetch().userData(this.userId);
+      }
+
+      if (userData.score !== undefined) {
+        goalScore = userData.score;
+      } else {
+        goalScore = userData.todayScore;
+      }
+
+      return goalScore;
+    } catch (error) {
+      console.error("Error fetching KeyData:", error);
+      throw error;
+    }
+  }
+
   async getUserActivity() {
     try {
       let userActivity;
@@ -69,6 +92,22 @@ export class DataController {
         averageSessions = await new ApiFetch().averageSessionsData(this.userId);
       }
       return averageSessions;
+    } catch (error) {
+      console.error("Error fetching data from average sessions:", error);
+      throw error;
+    }
+  }
+
+  async getUserStats() {
+    try {
+      let performance;
+
+      if (this.isMockMode) {
+        performance = await new MockFetch().performanceData(this.userId);
+      } else {
+        performance = await new ApiFetch().performanceData(this.userId);
+      }
+      return performance;
     } catch (error) {
       console.error("Error fetching data from average sessions:", error);
       throw error;

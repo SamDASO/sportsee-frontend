@@ -22,6 +22,9 @@ function Home() {
   const [userKeyData, setUserKeyData] = useState(null);
   const [userActivity, setUserActivity] = useState(null);
   const [averageSessions, setAverageSessions] = useState(null);
+  const [statsSubjects, setStatsSubjects] = useState(null);
+  const [statsData, setStatsData] = useState(null);
+  const [goalScore, setGoalScore] = useState(null);
 
   //behavior
   useEffect(() => {
@@ -76,6 +79,33 @@ function Home() {
     };
 
     fetchAverageSessions();
+
+    //Fetch stats data
+
+    const fetchStatsSubjects = async () => {
+      try {
+        const userStats = await dataController.getUserStats();
+        const statsSubjects = userStats.kind;
+        const statsData = userStats.data;
+        setStatsSubjects(statsSubjects);
+        setStatsData(statsData);
+      } catch (error) {
+        console.error("Error fetching stats subjects:", error);
+      }
+    };
+    fetchStatsSubjects();
+
+    //fetch goalScore//
+    const fetchGoalScore = async () => {
+      try {
+        const userGoalScore = await dataController.getGoalScore();
+        setGoalScore(userGoalScore);
+      } catch (error) {
+        console.error("Error fetching stats subjects:", error);
+      }
+    };
+
+    fetchGoalScore();
   }, [userId]);
 
   return (
@@ -97,8 +127,10 @@ function Home() {
           {userActivity && <Activity activityData={userActivity} />}
           <div className={style.graphs}>
             {averageSessions && <AverageSession data={averageSessions} />}
-            <Stats />
-            <Goal />
+            {statsData && statsSubjects && (
+              <Stats statsData={statsData} statsSubject={statsSubjects} />
+            )}
+            {goalScore && <Goal goalScore={goalScore} />}
           </div>
         </div>
         <aside className={style.summary}>
