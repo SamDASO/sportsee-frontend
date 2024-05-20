@@ -1,4 +1,4 @@
-import style from "./session.module.scss";
+import style from "./averageSessions.module.scss";
 import PropTypes from "prop-types";
 
 const SessionTooltip = ({ active, payload }) => {

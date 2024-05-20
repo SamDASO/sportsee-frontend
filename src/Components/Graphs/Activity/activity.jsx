@@ -14,7 +14,8 @@ import ActivityTooltip from "./tooltip";
 const Activity = ({ activityData }) => {
   //state
   const formatXAxisTick = (value) => {
-    return value.split("-")[2];
+    const day = value.split("-")[2];
+    return parseInt(day, 10).toString();
   };
 
   const hideTickNumbers = () => null;
@@ -24,6 +25,7 @@ const Activity = ({ activityData }) => {
     <div id="container" className={style.component}>
       <div className={style.header}>
         <p className={style.title}>Activité quotidienne</p>
+
         <ul className={style.legend}>
           <li className={style.legendText}>
             <div className={style.markerPds}></div>Poids (kg)

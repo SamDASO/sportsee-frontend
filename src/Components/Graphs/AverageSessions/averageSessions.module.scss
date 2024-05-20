@@ -1,5 +1,5 @@
 .component {
-  width: 258px;
+  width: 280px;
   height: 263px;
   border-radius: 5px;
   background: #f00;
@@ -7,11 +7,20 @@
   flex-shrink: 0;
 }
 
+.lineContainer {
+  margin: auto;
+}
+
+.lineChart {
+  opacity: 0.5;
+}
+
 .title {
   color: #fff;
   font-size: 15px;
   font-style: normal;
   font-weight: 500;
+  opacity: 0.5;
 }
 
 .customTooltip {
@@ -35,4 +44,5 @@
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
+  opacity: 0.5;
 }

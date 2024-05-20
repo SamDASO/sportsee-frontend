@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import style from "./home.module.scss";
 import { DataController } from "../fetchData/DataController";
-import Activity from "../Components/Graphs/Daily-act/activity";
-import AverageSession from "../Components/Graphs/Average-sess/session";
+import Activity from "../Components/Graphs/Activity/activity";
+import AverageSession from "../Components/Graphs/AverageSessions/averageSessions";
 import Stats from "../Components/Graphs/Stats/stats";
 import Goal from "../Components/Graphs/Goal/goal";
 import SummaryElement from "../Components/SummaryElement/element";
@@ -22,7 +22,6 @@ function Home() {
   const [userKeyData, setUserKeyData] = useState(null);
   const [userActivity, setUserActivity] = useState(null);
   const [averageSessions, setAverageSessions] = useState(null);
-  const [statsSubjects, setStatsSubjects] = useState(null);
   const [statsData, setStatsData] = useState(null);
   const [goalScore, setGoalScore] = useState(null);
 
@@ -82,18 +81,16 @@ function Home() {
 
     //Fetch stats data
 
-    const fetchStatsSubjects = async () => {
+    const fetchStats = async () => {
       try {
         const userStats = await dataController.getUserStats();
-        const statsSubjects = userStats.kind;
         const statsData = userStats.data;
-        setStatsSubjects(statsSubjects);
         setStatsData(statsData);
       } catch (error) {
         console.error("Error fetching stats subjects:", error);
       }
     };
-    fetchStatsSubjects();
+    fetchStats();
 
     //fetch goalScore//
     const fetchGoalScore = async () => {
@@ -127,9 +124,7 @@ function Home() {
           {userActivity && <Activity activityData={userActivity} />}
           <div className={style.graphs}>
             {averageSessions && <AverageSession data={averageSessions} />}
-            {statsData && statsSubjects && (
-              <Stats statsData={statsData} statsSubject={statsSubjects} />
-            )}
+            {statsData && <Stats statsData={statsData} />}
             {goalScore && <Goal goalScore={goalScore} />}
           </div>
         </div>

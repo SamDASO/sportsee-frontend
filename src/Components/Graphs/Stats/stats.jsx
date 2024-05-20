@@ -9,8 +9,17 @@ import {
 } from "recharts";
 import PropTypes from "prop-types";
 
-const Stats = ({ statsData, statsSubject }) => {
+const Stats = ({ statsData }) => {
   const transformData = () => {
+    const statsSubject = {
+      1: "Cardio",
+      2: "Energie",
+      3: "Endurance",
+      4: "Force",
+      5: "Vitesse",
+      6: "Intensité",
+    };
+
     return statsData.map((item) => ({
       ...item,
       kind: statsSubject[item.kind],
@@ -34,9 +43,9 @@ const Stats = ({ statsData, statsSubject }) => {
           <PolarRadiusAxis tick={false} axisLine={false} tickLine={false} />
           <Radar
             dataKey="value"
-            stroke="#FF0101B3"
-            fill="#FF0101B3"
-            fillOpacity={0.6}
+            stroke="#FF0101"
+            fill="#FF0101"
+            fillOpacity={0.7}
           />
         </RadarChart>
       </ResponsiveContainer>
