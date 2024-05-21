@@ -17,36 +17,38 @@ export class MockFetch {
 
   async userData(userId) {
     return new Promise((resolve) => {
-      setTimeout(() => {
-        const user = this.mockData.USER_MAIN_DATA.find(
-          (user) => user.id == userId
-        );
-        resolve(user);
-      }, 1000);
+      const user = this.mockData.USER_MAIN_DATA.find(
+        (user) => user.id == userId
+      );
+      resolve(user);
     });
   }
 
-  async activityData() {
+  async activityData(userId) {
     return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(this.mockData.USER_ACTIVITY);
-      }, 1000);
+      const userActivity = this.mockData.USER_ACTIVITY.find(
+        (user) => user.userId == userId
+      );
+
+      resolve(userActivity.sessions);
     });
   }
 
-  async averageSessionsData() {
+  async averageSessionsData(userId) {
     return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(this.mockData.USER_AVERAGE_SESSIONS);
-      }, 1000);
+      const userSessions = this.mockData.USER_AVERAGE_SESSIONS.find(
+        (user) => user.userId == userId
+      );
+      resolve(userSessions.sessions);
     });
   }
 
-  async performanceData() {
+  async performanceData(userId) {
     return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(this.mockData.USER_PERFORMANCE);
-      }, 1000);
+      const userPerformance = this.mockData.USER_PERFORMANCE.find(
+        (user) => user.userId == userId
+      );
+      resolve(userPerformance);
     });
   }
 }

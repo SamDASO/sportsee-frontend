@@ -23,4 +23,94 @@ export class DataController {
       throw error;
     }
   }
+
+  async getKeyData() {
+    try {
+      let keyData;
+      if (this.isMockMode) {
+        const userData = await new MockFetch().userData(this.userId);
+        keyData = userData.keyData;
+      } else {
+        const userData = await new ApiFetch().userData(this.userId);
+        keyData = userData.keyData;
+      }
+      return keyData;
+    } catch (error) {
+      console.error("Error fetching KeyData:", error);
+      throw error;
+    }
+  }
+
+  async getGoalScore() {
+    try {
+      let goalScore;
+      let userData;
+      if (this.isMockMode) {
+        userData = await new MockFetch().userData(this.userId);
+      } else {
+        userData = await new ApiFetch().userData(this.userId);
+      }
+
+      if (userData.score !== undefined) {
+        goalScore = userData.score;
+      } else {
+        goalScore = userData.todayScore;
+      }
+
+      return goalScore;
+    } catch (error) {
+      console.error("Error fetching KeyData:", error);
+      throw error;
+    }
+  }
+
+  async getUserActivity() {
+    try {
+      let userActivity;
+
+      if (this.isMockMode) {
+        userActivity = await new MockFetch().activityData(this.userId);
+      } else {
+        userActivity = await new ApiFetch().activityData(this.userId);
+      }
+      return userActivity;
+    } catch (error) {
+      console.error("Error fetching activityData:", error);
+      throw error;
+    }
+  }
+
+  async getUserAverageSessions() {
+    try {
+      let averageSessions;
+
+      if (this.isMockMode) {
+        averageSessions = await new MockFetch().averageSessionsData(
+          this.userId
+        );
+      } else {
+        averageSessions = await new ApiFetch().averageSessionsData(this.userId);
+      }
+      return averageSessions;
+    } catch (error) {
+      console.error("Error fetching data from average sessions:", error);
+      throw error;
+    }
+  }
+
+  async getUserStats() {
+    try {
+      let performance;
+
+      if (this.isMockMode) {
+        performance = await new MockFetch().performanceData(this.userId);
+      } else {
+        performance = await new ApiFetch().performanceData(this.userId);
+      }
+      return performance;
+    } catch (error) {
+      console.error("Error fetching data from average sessions:", error);
+      throw error;
+    }
+  }
 }

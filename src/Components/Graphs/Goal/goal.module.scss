@@ -1,0 +1,40 @@
+.component {
+  background-color: #fbfbfb;
+  min-width: 217px;
+  min-height: 217px;
+  flex-shrink: 0;
+}
+
+.title {
+  color: #20253a;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+.container {
+  position: relative;
+}
+
+.ScoreNumber {
+  width: 95px;
+  position: absolute;
+  text-align: center;
+  color: #282d30;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 700;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+
+  & .scoreText {
+    color: #74798c;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    text-align: center;
+  }
+}
