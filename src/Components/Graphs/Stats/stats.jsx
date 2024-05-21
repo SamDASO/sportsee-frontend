@@ -60,7 +60,6 @@ Stats.propTypes = {
       kind: PropTypes.number.isRequired,
     })
   ).isRequired,
-  statsSubject: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default Stats;
