@@ -5,18 +5,17 @@ export class DataController {
   constructor(userId) {
     this.isMockMode = import.meta.env.MODE === "mock";
     this.userId = userId;
+    if (this.isMockMode) {
+      this.fetcher = new MockFetch();
+    } else {
+      this.fetcher = new ApiFetch();
+    }
   }
 
   async getUserName() {
     try {
-      let name;
-      if (this.isMockMode) {
-        const userData = await new MockFetch().userData(this.userId);
-        name = userData.userInfos.firstName;
-      } else {
-        const userData = await new ApiFetch().userData(this.userId);
-        name = userData.userInfos.firstName;
-      }
+      const userData = await this.fetcher.userData(this.userId);
+      const name = userData.userInfos.firstName;
       return name;
     } catch (error) {
       console.error("Error fetching dataUserName:", error);
@@ -26,14 +25,8 @@ export class DataController {
 
   async getKeyData() {
     try {
-      let keyData;
-      if (this.isMockMode) {
-        const userData = await new MockFetch().userData(this.userId);
-        keyData = userData.keyData;
-      } else {
-        const userData = await new ApiFetch().userData(this.userId);
-        keyData = userData.keyData;
-      }
+      const userData = await this.fetcher.userData(this.userId);
+      const keyData = userData.keyData;
       return keyData;
     } catch (error) {
       console.error("Error fetching KeyData:", error);
@@ -44,12 +37,7 @@ export class DataController {
   async getGoalScore() {
     try {
       let goalScore;
-      let userData;
-      if (this.isMockMode) {
-        userData = await new MockFetch().userData(this.userId);
-      } else {
-        userData = await new ApiFetch().userData(this.userId);
-      }
+      const userData = await this.fetcher.userData(this.userId);
 
       if (userData.score !== undefined) {
         goalScore = userData.score;
@@ -66,13 +54,8 @@ export class DataController {
 
   async getUserActivity() {
     try {
-      let userActivity;
+      const userActivity = await this.fetcher.activityData(this.userId);
 
-      if (this.isMockMode) {
-        userActivity = await new MockFetch().activityData(this.userId);
-      } else {
-        userActivity = await new ApiFetch().activityData(this.userId);
-      }
       return userActivity;
     } catch (error) {
       console.error("Error fetching activityData:", error);
@@ -82,15 +65,10 @@ export class DataController {
 
   async getUserAverageSessions() {
     try {
-      let averageSessions;
+      const averageSessions = await new MockFetch().averageSessionsData(
+        this.userId
+      );
 
-      if (this.isMockMode) {
-        averageSessions = await new MockFetch().averageSessionsData(
-          this.userId
-        );
-      } else {
-        averageSessions = await new ApiFetch().averageSessionsData(this.userId);
-      }
       return averageSessions;
     } catch (error) {
       console.error("Error fetching data from average sessions:", error);
@@ -100,13 +78,8 @@ export class DataController {
 
   async getUserStats() {
     try {
-      let performance;
+      const performance = await this.fetcher.performanceData(this.userId);
 
-      if (this.isMockMode) {
-        performance = await new MockFetch().performanceData(this.userId);
-      } else {
-        performance = await new ApiFetch().performanceData(this.userId);
-      }
       return performance;
     } catch (error) {
       console.error("Error fetching data from average sessions:", error);

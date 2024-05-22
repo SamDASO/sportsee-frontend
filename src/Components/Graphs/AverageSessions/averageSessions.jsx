@@ -31,7 +31,12 @@ const AverageSession = ({ data }) => {
         height={200}
         className={style.lineContainer}
       >
-        <LineChart width={280} height={260} data={data}>
+        <LineChart
+          width={280}
+          height={260}
+          data={data}
+          margin={{ top: 10, right: 10, left: 10, bottom: 0 }}
+        >
           <Line
             type="monotone"
             dataKey="sessionLength"

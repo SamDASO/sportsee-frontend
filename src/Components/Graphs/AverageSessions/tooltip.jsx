@@ -6,7 +6,7 @@ const SessionTooltip = ({ active, payload }) => {
     const sessionLength = payload[0].payload.sessionLength;
     return (
       <div className={style.customTooltip}>
-        <p className={style.tooltipItem}>{sessionLength}mins</p>
+        <p className={style.tooltipItem}>{sessionLength} min</p>
       </div>
     );
   }

@@ -9,7 +9,7 @@ export class ApiFetch {
   async userData(userId) {
     try {
       const response = await axios.get(`${this.apiUrl}/user/${userId}`);
-      return response.data;
+      return response.data.data;
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error;
@@ -21,7 +21,7 @@ export class ApiFetch {
       const response = await axios.get(
         `${this.apiUrl}/user/${userId}/activity`
       );
-      return response.data;
+      return response.data.data;
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error;
@@ -33,7 +33,7 @@ export class ApiFetch {
       const response = await axios.get(
         `${this.apiUrl}/user/${userId}/average-sessions`
       );
-      return response.data;
+      return response.data.data;
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error;
@@ -45,7 +45,7 @@ export class ApiFetch {
       const response = await axios.get(
         `${this.apiUrl}/user/${userId}/performance`
       );
-      return response.data;
+      return response.data.data;
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error;

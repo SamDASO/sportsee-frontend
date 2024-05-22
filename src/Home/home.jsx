@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { useCallback, useMemo } from "react";
 import style from "./home.module.scss";
 import { DataController } from "../fetchData/DataController";
 import Activity from "../Components/Graphs/Activity/activity";
@@ -18,44 +19,67 @@ import fatLogo from "../assets/images/fat.svg";
 function Home() {
   //state
   const { userId } = useParams();
-  const dataController = new DataController(userId);
+  const dataController = useMemo(() => new DataController(userId), [userId]);
+
+  const fetchUserName = useCallback(
+    () => dataController.getUserName(),
+    [dataController]
+  );
+  const fetchUserKey = useCallback(
+    () => dataController.getKeyData(),
+    [dataController]
+  );
+  const fetchActivity = useCallback(
+    () => dataController.getUserActivity(),
+    [dataController]
+  );
+  const fetchSessions = useCallback(
+    () => dataController.getUserAverageSessions(),
+    [dataController]
+  );
+  const fetchUserStats = useCallback(
+    () => dataController.getUserStats().then((response) => response.data),
+    [dataController]
+  );
+  const fetchUserGoal = useCallback(
+    () => dataController.getGoalScore(),
+    [dataController]
+  );
 
   const {
     fetchData: userName,
     isLoading: nameLoading,
     error: nameError,
-  } = useDisplay(() => dataController.getUserName());
+  } = useDisplay(fetchUserName);
   const {
     fetchData: userKeyData,
     isLoading: keyDataLoading,
     error: keyDataError,
-  } = useDisplay(() => dataController.getKeyData());
+  } = useDisplay(fetchUserKey);
 
   const {
     fetchData: userActivity,
     isLoading: activityLoading,
     error: activityError,
-  } = useDisplay(() => dataController.getUserActivity());
+  } = useDisplay(fetchActivity);
 
   const {
     fetchData: averageSessions,
     isLoading: sessionsLoading,
     error: sessionsError,
-  } = useDisplay(() => dataController.getUserAverageSessions());
+  } = useDisplay(fetchSessions);
 
   const {
     fetchData: statsData,
     isLoading: statsLoading,
     error: statsError,
-  } = useDisplay(() =>
-    dataController.getUserStats().then((response) => response.data)
-  );
+  } = useDisplay(fetchUserStats);
 
   const {
     fetchData: goalScore,
     isLoading: goalLoading,
     error: goalError,
-  } = useDisplay(() => dataController.getGoalScore());
+  } = useDisplay(fetchUserGoal);
 
   //render
 
