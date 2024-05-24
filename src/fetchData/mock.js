@@ -30,7 +30,7 @@ export class MockFetch {
         (user) => user.userId == userId
       );
 
-      resolve(userActivity.sessions);
+      resolve(userActivity);
     });
   }
 
@@ -39,7 +39,7 @@ export class MockFetch {
       const userSessions = this.mockData.USER_AVERAGE_SESSIONS.find(
         (user) => user.userId == userId
       );
-      resolve(userSessions.sessions);
+      resolve(userSessions);
     });
   }
 

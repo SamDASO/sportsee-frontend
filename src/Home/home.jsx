@@ -93,7 +93,7 @@ function Home() {
           ) : nameError ? (
             <span className={style.nameError}>Erreur chargement du nom...</span>
           ) : (
-            userName && <span className={style.name}>{userName}</span>
+            userName && <span className={style.name}> {userName}</span>
           )}
         </h1>
 

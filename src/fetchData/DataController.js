@@ -54,8 +54,8 @@ export class DataController {
 
   async getUserActivity() {
     try {
-      const userActivity = await this.fetcher.activityData(this.userId);
-
+      const userData = await this.fetcher.activityData(this.userId);
+      const userActivity = userData.sessions;
       return userActivity;
     } catch (error) {
       console.error("Error fetching activityData:", error);
@@ -65,9 +65,10 @@ export class DataController {
 
   async getUserAverageSessions() {
     try {
-      const averageSessions = await new MockFetch().averageSessionsData(
+      const userData = await this.fetcher.averageSessionsData(
         this.userId
       );
+      const averageSessions = userData.sessions;
 
       return averageSessions;
     } catch (error) {

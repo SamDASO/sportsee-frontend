@@ -22,6 +22,7 @@ export class ApiFetch {
         `${this.apiUrl}/user/${userId}/activity`
       );
       return response.data.data;
+      
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error;
