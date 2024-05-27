@@ -29,8 +29,8 @@ const Stats = ({ statsData }) => {
   const transformedData = transformData();
 
   return (
-    <div className={style.component}>
-      <ResponsiveContainer width={320} height="100%">
+    <div className={`${style.component} stats-radar-chart`}>
+      <ResponsiveContainer width={330} height="100%">
         <RadarChart cx="50%" cy="50%" outerRadius="80%" data={transformedData}>
           <PolarGrid stroke="#FFFFFF" />
           <PolarAngleAxis
@@ -39,6 +39,7 @@ const Stats = ({ statsData }) => {
               fontSize: 12,
               fill: "#FFFFFF",
             }}
+            tickSize={15}
           />
           <PolarRadiusAxis tick={false} axisLine={false} tickLine={false} />
           <Radar
