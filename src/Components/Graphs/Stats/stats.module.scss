@@ -10,4 +10,8 @@
   width: auto;
   height: auto;
   flex-shrink: 0;
+
+  & :global(.recharts-polar-grid-angle) {
+    display: none;
+  }
 }

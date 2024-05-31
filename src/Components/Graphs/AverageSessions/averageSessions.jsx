@@ -28,14 +28,14 @@ const AverageSession = ({ data }) => {
       <p className={style.title}>Durée moyenne des sessions</p>
       <ResponsiveContainer
         width="100%"
-        height={200}
+        height="100%"
         className={style.lineContainer}
       >
         <LineChart
           width={280}
-          height={260}
+          height={200}
           data={data}
-          margin={{ top: 10, right: 10, left: 10, bottom: 0 }}
+          margin={{ top: 40, right: 10, left: 10, bottom: 60 }}
         >
           <Line
             type="monotone"
@@ -49,6 +49,7 @@ const AverageSession = ({ data }) => {
               strokeWidth: 10,
               r: 5,
             }}
+            
           />
 
           <XAxis

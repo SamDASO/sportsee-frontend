@@ -29,7 +29,7 @@ const Stats = ({ statsData }) => {
   const transformedData = transformData();
 
   return (
-    <div className={`${style.component} stats-radar-chart`}>
+    <div className={style.component}>
       <ResponsiveContainer width={330} height="100%">
         <RadarChart cx="50%" cy="50%" outerRadius="80%" data={transformedData}>
           <PolarGrid stroke="#FFFFFF" />

@@ -1,10 +1,11 @@
 .component {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 25px;
   background-color: #fbfbfb;
   padding: 32px;
+  width: 194px;
 }
 
 .logoContainer {
