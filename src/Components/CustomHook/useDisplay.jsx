@@ -1,32 +1,33 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 const useDisplay = (fetchDataCallback) => {
   //state
-  const [fetchData, setdata] = useState(null);
+  const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   //behavior
 
+  const fetchData = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+        const result = await fetchDataCallback();
+        setData(result);
+    } catch (err) {
+      setError(err.message || 'Error');
+    } finally {
+        setIsLoading(false);
+    }
+}, [fetchDataCallback]);
+
+
   useEffect(() => {
-    const handleState = async () => {
-      setIsLoading(true);
+    
+    fetchData();
+  }, [fetchData]);
 
-      try {
-        const response = await fetchDataCallback();
-        setIsLoading(false);
-        setdata(response);
-      } catch (error) {
-        setIsLoading(false);
-        setError(
-          "Les données n'ont pas pu être récupérées - veuillez rechargez la page"
-        );
-      }
-    };
-    handleState();
-  }, [fetchDataCallback]);
-
-  return { fetchData, isLoading, error };
+  return { data, isLoading, error, refresh: fetchData };
 };
 
 export default useDisplay;

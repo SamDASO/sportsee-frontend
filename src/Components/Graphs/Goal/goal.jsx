@@ -1,9 +1,10 @@
 import style from "./goal.module.scss";
+import RefreshBtn from "../../Refresh/refreshBtn";
 import { PieChart, Pie, ResponsiveContainer, Cell } from "recharts";
 
 import PropTypes from "prop-types";
 
-const Goal = ({ goalScore }) => {
+const Goal = ({ goalScore, isLoading, error, refresh }) => {
   const data = [
     { name: "notReached", value: 1 - goalScore, fill: "transparent" },
     {
@@ -16,6 +17,13 @@ const Goal = ({ goalScore }) => {
   return (
     <div className={style.component}>
       <p className={style.title}>Score</p>
+      {isLoading ? (
+              <p className={style.loading}>Chargement...</p>
+            ) : error ? (
+              <div className={style.errorDiv}>
+              <p className={style.error}>Erreur chargement des données d'objectif</p>
+              <RefreshBtn onClick={refresh}/></div>
+            ) : (
       <ResponsiveContainer
         width="100%"
         height={217}
@@ -47,13 +55,16 @@ const Goal = ({ goalScore }) => {
           {goalScore * 100}% <br />
           <span className={style.scoreText}>de votre objectif</span>
         </p>
-      </ResponsiveContainer>
+      </ResponsiveContainer>)}
     </div>
   );
 };
 
 Goal.propTypes = {
   goalScore: PropTypes.number,
+  isLoading: PropTypes.bool,
+  error: PropTypes.string,
+  refresh: PropTypes.func,
 };
 
 export default Goal;

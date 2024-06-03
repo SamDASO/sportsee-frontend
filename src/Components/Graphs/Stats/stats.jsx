@@ -1,4 +1,5 @@
 import style from "./stats.module.scss";
+import RefreshBtn from "../../Refresh/refreshBtn";
 import {
   Radar,
   RadarChart,
@@ -9,8 +10,10 @@ import {
 } from "recharts";
 import PropTypes from "prop-types";
 
-const Stats = ({ statsData }) => {
+const Stats = ({ statsData, isLoading, error, refresh }) => {
   const transformData = () => {
+    if (!statsData) return [];
+
     const statsSubject = {
       1: "Cardio",
       2: "Energie",
@@ -30,6 +33,13 @@ const Stats = ({ statsData }) => {
 
   return (
     <div className={style.component}>
+      {isLoading ? (
+              <p className={style.loading}>Chargement...</p>
+            ) : error ? (
+              <div className={style.errorDiv}>
+              <p className={style.error}>Erreur chargement des données de statistiques</p>
+              <RefreshBtn onclick={refresh}/></div>
+            ) : (
       <ResponsiveContainer width={330} height="100%">
         <RadarChart cx="50%" cy="50%" outerRadius="80%" data={transformedData}>
           <PolarGrid stroke="#FFFFFF" />
@@ -49,7 +59,7 @@ const Stats = ({ statsData }) => {
             fillOpacity={0.7}
           />
         </RadarChart>
-      </ResponsiveContainer>
+      </ResponsiveContainer>)}
     </div>
   );
 };
@@ -61,6 +71,9 @@ Stats.propTypes = {
       kind: PropTypes.number.isRequired,
     })
   ).isRequired,
+  isLoading: PropTypes.bool,
+  error: PropTypes.string,
+  refresh: PropTypes.func,
 };
 
 export default Stats;
