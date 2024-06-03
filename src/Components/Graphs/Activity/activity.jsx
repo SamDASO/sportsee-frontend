@@ -10,9 +10,10 @@ import {
 import PropTypes from "prop-types";
 import style from "./activity.module.scss";
 import ActivityTooltip from "./tooltip";
+import RefreshBtn from "../../Refresh/refreshBtn";
 
-const Activity = ({ activityData }) => {
-  //state
+const Activity = ({ activityData, isLoading, error, refresh}) => {
+  //state 
   const formatXAxisTick = (value) => {
     const day = value.split("-")[2];
     return parseInt(day, 10).toString();
@@ -35,6 +36,14 @@ const Activity = ({ activityData }) => {
           </li>
         </ul>
       </div>
+      {isLoading ? (
+              <p className={style.loading}>Chargement...</p>
+            ) : error ? (
+              <div className={style.errorDiv}>
+              <p className={style.error}>Erreur chargement des données d'activité</p>
+              <RefreshBtn onClick={refresh}/>
+              </div>
+            ) : (
       <ResponsiveContainer width="100%" height={320}>
         <BarChart
           height={320}
@@ -71,12 +80,16 @@ const Activity = ({ activityData }) => {
           />
         </BarChart>
       </ResponsiveContainer>
+            )}
     </div>
   );
 };
 
 Activity.propTypes = {
   activityData: PropTypes.any,
+  isLoading: PropTypes.bool,
+  error: PropTypes.string,
+  refresh: PropTypes.func,
 };
 
 export default Activity;

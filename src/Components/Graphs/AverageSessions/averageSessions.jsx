@@ -1,9 +1,10 @@
 import style from "./averageSessions.module.scss";
+import RefreshBtn from "../../Refresh/refreshBtn";
 import { LineChart, Line, Tooltip, XAxis, ResponsiveContainer } from "recharts";
 import PropTypes from "prop-types";
 import SessionTooltip from "./tooltip.jsx";
 
-const AverageSession = ({ data }) => {
+const AverageSession = ({ data, isLoading, error, refresh}) => {
   //state
 
   const dayNames = ["", "L", "M", "M", "J", "V", "S", "D"];
@@ -11,21 +12,19 @@ const AverageSession = ({ data }) => {
     return dayNames[day];
   };
 
-  //behavior
-
-  if (!data || data.length === 0) {
-    return (
-      <div className={style.component}>
-        <p>Chargement...</p>
-      </div>
-    );
-  }
 
   //render
 
   return (
     <div className={style.component}>
       <p className={style.title}>Durée moyenne des sessions</p>
+      {isLoading ? (
+              <p className={style.loading}>Chargement...</p>
+            ) : error ? (
+              <div className={style.errorDiv}>
+              <p className={style.error}>Erreur chargement des données de sessions</p>
+              <RefreshBtn onClick={refresh}/></div>
+            ) : (
       <ResponsiveContainer
         width="100%"
         height="100%"
@@ -61,7 +60,7 @@ const AverageSession = ({ data }) => {
           />
           <Tooltip content={<SessionTooltip />} cursor={false} />
         </LineChart>
-      </ResponsiveContainer>
+      </ResponsiveContainer>)}
     </div>
   );
 };
@@ -75,6 +74,9 @@ AverageSession.propTypes = {
   ),
   cx: PropTypes.number,
   cy: PropTypes.number,
+  isLoading: PropTypes.bool,
+  error: PropTypes.string,
+  refresh: PropTypes.func,
 };
 
 export default AverageSession;

@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useCallback, useMemo } from "react";
 import style from "./home.module.scss";
+import RefreshBtn from "../Components/Refresh/refreshBtn";
 import { DataController } from "../fetchData/DataController";
 import Activity from "../Components/Graphs/Activity/activity";
 import AverageSession from "../Components/Graphs/AverageSessions/averageSessions";
@@ -38,7 +39,7 @@ function Home() {
     [dataController]
   );
   const fetchUserStats = useCallback(
-    () => dataController.getUserStats().then((response) => response.data),
+    () => dataController.getUserStats(),
     [dataController]
   );
   const fetchUserGoal = useCallback(
@@ -47,38 +48,44 @@ function Home() {
   );
 
   const {
-    fetchData: userName,
+    data: userName,
     isLoading: nameLoading,
     error: nameError,
+    refresh : refreshName,
   } = useDisplay(fetchUserName);
   const {
-    fetchData: userKeyData,
+    data: userKeyData,
     isLoading: keyDataLoading,
     error: keyDataError,
+    refresh : refreshKeyData,
   } = useDisplay(fetchUserKey);
 
   const {
-    fetchData: userActivity,
+    data: userActivity,
     isLoading: activityLoading,
     error: activityError,
+    refresh : refreshActivity,
   } = useDisplay(fetchActivity);
 
   const {
-    fetchData: averageSessions,
+    data: averageSessions,
     isLoading: sessionsLoading,
     error: sessionsError,
+    refresh : refreshSessions,
   } = useDisplay(fetchSessions);
 
   const {
-    fetchData: statsData,
+    data: statsData,
     isLoading: statsLoading,
     error: statsError,
+    refresh : refreshStats,
   } = useDisplay(fetchUserStats);
 
   const {
-    fetchData: goalScore,
+    data: goalScore,
     isLoading: goalLoading,
     error: goalError,
+    refresh : refreshGoal,
   } = useDisplay(fetchUserGoal);
 
   //render
@@ -91,7 +98,9 @@ function Home() {
           {nameLoading ? (
             <span className={style.name}>Chargement...</span>
           ) : nameError ? (
+            <div className={style.errorDiv}>
             <span className={style.nameError}>Erreur chargement du nom...</span>
+            <RefreshBtn onClick={refreshName}/></div>
           ) : (
             userName && <span className={style.name}> {userName}</span>
           )}
@@ -103,110 +112,70 @@ function Home() {
       </div>
       <section className={style.dashboard}>
         <div className={style.graphContainer}>
-          {activityLoading ? (
-            <p className={style.loading}>Chargement...</p>
-          ) : activityError ? (
-            <p className={style.error}>Erreur chargement des données</p>
-          ) : (
-            userActivity && <Activity activityData={userActivity} />
-          )}
+          <Activity activityData={userActivity} isLoading={activityLoading} error={activityError} refresh={refreshActivity}/>
+          
 
           <div className={style.graphs}>
-            {sessionsLoading ? (
-              <p className={style.loading}>Chargement...</p>
-            ) : sessionsError ? (
-              <p className={style.error}>Erreur chargement des données</p>
-            ) : (
-              averageSessions && <AverageSession data={averageSessions} />
-            )}
+            <AverageSession data={averageSessions} isLoading={sessionsLoading} error={sessionsError} refresh={refreshSessions}/>
+            
 
-            {statsLoading ? (
-              <p className={style.loading}>Chargement...</p>
-            ) : statsError ? (
-              <p className={style.error}>Erreur chargement des données</p>
-            ) : (
-              statsData && <Stats statsData={statsData} />
-            )}
+            <Stats statsData={statsData} isLoading={statsLoading} error={statsError} refresh={refreshStats}/>
+            
 
-            {goalLoading ? (
-              <p className={style.loading}>Chargement...</p>
-            ) : goalError ? (
-              <p className={style.error}>Erreur chargement des données</p>
-            ) : (
-              goalScore && <Goal goalScore={goalScore} />
-            )}
+            <Goal goalScore={goalScore} isLoading={goalLoading} error={goalError} refresh={refreshGoal}/>
+            
           </div>
         </div>
         <aside className={style.summary}>
-          {keyDataLoading ? (
-            <p className={style.loading}>Chargement...</p>
-          ) : keyDataError ? (
-            <p className={style.error}>Erreur chargement des données</p>
-          ) : (
-            userKeyData && (
-              <SummaryElement
+          <SummaryElement
                 className={style.calories}
+                isLoading={keyDataLoading} error={keyDataError} refresh={refreshKeyData}
                 alt={"calories"}
                 img={caloriesLogo}
                 color={"#FF00001A"}
                 dataName={"Calories"}
-                dataValue={userKeyData.calorieCount}
+                dataValue={userKeyData?.calorieCount}
                 unit={"kCal"}
               />
-            )
-          )}
-          {keyDataLoading ? (
-            <p className={style.loading}>Chargement...</p>
-          ) : keyDataError ? (
-            <p className={style.error}>Erreur chargement des données</p>
-          ) : (
-            userKeyData && (
+            
+          
+          
               <SummaryElement
                 className={style.protein}
+                isLoading={keyDataLoading} error={keyDataError} refresh={refreshKeyData}
                 alt={"proteines"}
                 img={proteinLogo}
                 color={"#4AB8FF1A"}
                 dataName={"Proteines"}
-                dataValue={userKeyData.proteinCount}
+                dataValue={userKeyData?.proteinCount}
                 unit={"g"}
               />
-            )
-          )}
-          {keyDataLoading ? (
-            <p className={style.loading}>Chargement...</p>
-          ) : keyDataError ? (
-            <p className={style.error}>Erreur chargement des données</p>
-          ) : (
-            userKeyData && (
+            
               <SummaryElement
                 className={style.carbohydrate}
+                isLoading={keyDataLoading} error={keyDataError} refresh={refreshKeyData}
                 alt={"glucides"}
                 img={carbohydrateLogo}
                 color={"#FDCC0C1A"}
                 dataName={"Glucides"}
-                dataValue={userKeyData.carbohydrateCount}
+                dataValue={userKeyData?.carbohydrateCount}
                 unit={"g"}
               />
-            )
-          )}
+            
+          
 
-          {keyDataLoading ? (
-            <p className={style.loading}>Chargement...</p>
-          ) : keyDataError ? (
-            <p className={style.error}>Erreur chargement des données</p>
-          ) : (
-            userKeyData && (
-              <SummaryElement
+          <SummaryElement
                 className={style.fat}
+                isLoading={keyDataLoading} error={keyDataError} refresh={refreshKeyData}
                 alt={"Lipides"}
                 img={fatLogo}
                 color={"#FD51811A"}
                 dataName={"Lipides"}
-                dataValue={userKeyData.lipidCount}
+                dataValue={userKeyData?.lipidCount}
                 unit={"g"}
               />
-            )
-          )}
+            
+          
         </aside>
       </section>
     </div>

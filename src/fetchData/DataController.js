@@ -81,7 +81,7 @@ export class DataController {
     try {
       const performance = await this.fetcher.performanceData(this.userId);
 
-      return performance;
+      return performance.data;
     } catch (error) {
       console.error("Error fetching data from average sessions:", error);
       throw error;
