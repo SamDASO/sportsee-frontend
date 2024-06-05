@@ -31,15 +31,15 @@ const SummaryElement = ({ isLoading, error, refresh, alt, img, color, dataName, 
 };
 
 SummaryElement.propTypes = {
-  alt: PropTypes.string.isRequired,
-  img: PropTypes.any.isRequired,
-  color: PropTypes.string.isRequired,
-  dataName: PropTypes.string.isRequired,
-  dataValue: PropTypes.any.isRequired,
-  unit: PropTypes.string.isRequired,
-  isLoading: PropTypes.bool.isRequired,
+  alt: PropTypes.string,
+  img: PropTypes.any,
+  color: PropTypes.string,
+  dataName: PropTypes.string,
+  dataValue: PropTypes.any,
+  unit: PropTypes.string,
+  isLoading: PropTypes.bool,
   error: PropTypes.string,
-  refresh: PropTypes.func.isRequired,
+  refresh: PropTypes.func,
 };
 
 export default SummaryElement;

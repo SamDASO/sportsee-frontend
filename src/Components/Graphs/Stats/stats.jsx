@@ -67,10 +67,10 @@ const Stats = ({ statsData, isLoading, error, refresh }) => {
 Stats.propTypes = {
   statsData: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.number.isRequired,
-      kind: PropTypes.number.isRequired,
+      value: PropTypes.number,
+      kind: PropTypes.number,
     })
-  ).isRequired,
+  ),
   isLoading: PropTypes.bool,
   error: PropTypes.string,
   refresh: PropTypes.func,
