@@ -26,10 +26,10 @@ const Goal = ({ goalScore, isLoading, error, refresh }) => {
             ) : (
       <ResponsiveContainer
         width="100%"
-        height={217}
+        height={310}
         className={style.container}
       >
-        <PieChart width={217} height={217}>
+        <PieChart >
           <Pie
             data={data}
             cx="50%"

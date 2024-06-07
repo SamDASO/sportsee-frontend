@@ -46,7 +46,6 @@ const Activity = ({ activityData, isLoading, error, refresh}) => {
             ) : (
       <ResponsiveContainer width="100%" height={320}>
         <BarChart
-          height={320}
           data={activityData}
           margin={{
             top: 30,
