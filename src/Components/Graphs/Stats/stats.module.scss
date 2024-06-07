@@ -2,20 +2,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 258px;
-  min-height: 263px;
   border-radius: 5px;
   background: #282d30;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.02);
-  width: auto;
-  height: auto;
+  flex-basis: 33%;
+  box-sizing: border-box;
+  width: 258px;
+  height: 263px;
 
   & :global(.recharts-polar-grid-angle) {
     display: none;
   }
 }
 
-//Stats CSS
+//States CSS
 
 .loading,
 .error {

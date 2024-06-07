@@ -31,8 +31,6 @@ const AverageSession = ({ data, isLoading, error, refresh}) => {
         className={style.lineContainer}
       >
         <LineChart
-          width={280}
-          height={200}
           data={data}
           margin={{ top: 40, right: 10, left: 10, bottom: 60 }}
         >

@@ -40,8 +40,8 @@ const Stats = ({ statsData, isLoading, error, refresh }) => {
               <p className={style.error}>Erreur chargement des données de statistiques</p>
               <RefreshBtn onclick={refresh}/></div>
             ) : (
-      <ResponsiveContainer width={330} height="100%">
-        <RadarChart cx="50%" cy="50%" outerRadius="80%" data={transformedData}>
+      <ResponsiveContainer width="100%" height="100%">
+        <RadarChart cx="50%" cy="50%" outerRadius="50%" data={transformedData}>
           <PolarGrid stroke="#FFFFFF" />
           <PolarAngleAxis
             dataKey="kind"

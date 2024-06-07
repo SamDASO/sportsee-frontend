@@ -1,9 +1,10 @@
 .component {
-  width: 310px;
-  height: 310px;
+  width: 258px;
+  height: 263px;
   border-radius: 5px;
   background: #f00;
   padding: 0 15px;
+  box-sizing: border-box;
 }
 
 .lineContainer {

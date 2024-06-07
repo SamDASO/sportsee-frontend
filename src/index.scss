@@ -9,8 +9,10 @@ a {
 }
 
 body {
+  width: 100vw;
   margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
+  overflow-x: hidden;
 }
