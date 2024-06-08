@@ -9,6 +9,8 @@ import Stats from "../Components/Graphs/Stats/stats";
 import Goal from "../Components/Graphs/Goal/goal";
 import SummaryElement from "../Components/SummaryElement/element";
 import useDisplay from "../Components/CustomHook/useDisplay";
+import UserInterface from "../models/userInterface";
+
 
 //img
 
@@ -20,8 +22,9 @@ import fatLogo from "../assets/images/fat.svg";
 function Home() {
   //state
   const { userId } = useParams();
+  
   const dataController = useMemo(() => new DataController(userId), [userId]);
-
+  
   const fetchUserName = useCallback(
     () => dataController.getUserName(),
     [dataController]
@@ -112,7 +115,7 @@ function Home() {
       </div>
       <section className={style.dashboard}>
         <div className={style.graphContainer}>
-          <Activity activityData={userActivity} isLoading={activityLoading} error={activityError} refresh={refreshActivity}/>
+          <Activity id={userId} activityData={userActivity} isLoading={activityLoading} error={activityError} refresh={refreshActivity}/>
           
 
           <div className={style.graphs}>
