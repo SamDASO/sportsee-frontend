@@ -1,15 +1,15 @@
 /**
- * class for the performance datas
+ * class for the performance data
  */
 
-export default class PerformanceInterface {
+export default class UserPerformance {
     /**
      * format fetch performance data
-     * @param {Object}
+     * @param userId number
+     * @param data any
      */
-    constructor({userId, data}) {
+    constructor({userId, kind, data}) {
         this.id = userId;
-        this.kind = kind;
         const kindFr = {
                 cardio: 'Cardio',
                 energy: 'Énergie',

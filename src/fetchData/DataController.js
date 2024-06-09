@@ -1,5 +1,9 @@
 import { MockFetch } from "./mock.js";
 import { ApiFetch } from "./api.js";
+import UserActivity from "../models/activityModel.js";
+import UserData from "../models/userModel.js";
+import UserPerformance from "../models/performanceModel.js";
+import UserAverageSessions from "../models/averageSessionsModel.js";
 
 export class DataController {
   constructor(userId) {
@@ -15,7 +19,7 @@ export class DataController {
   async getUserName() {
     try {
       const userData = await this.fetcher.userData(this.userId);
-      const name = userData.userInfos.firstName;
+      const name = new UserData(this.userId, userData);
       return name;
     } catch (error) {
       console.error("Error fetching dataUserName:", error);
@@ -26,7 +30,7 @@ export class DataController {
   async getKeyData() {
     try {
       const userData = await this.fetcher.userData(this.userId);
-      const keyData = userData.keyData;
+      const keyData = new UserData(this.userId, userData).keyData;
       return keyData;
     } catch (error) {
       console.error("Error fetching KeyData:", error);
@@ -36,16 +40,10 @@ export class DataController {
 
   async getGoalScore() {
     try {
-      let goalScore;
       const userData = await this.fetcher.userData(this.userId);
+      const userGoal = new UserData(this.userId, userData)
 
-      if (userData.score !== undefined) {
-        goalScore = userData.score;
-      } else {
-        goalScore = userData.todayScore;
-      }
-
-      return goalScore;
+      return userGoal;
     } catch (error) {
       console.error("Error fetching KeyData:", error);
       throw error;
@@ -55,7 +53,7 @@ export class DataController {
   async getUserActivity() {
     try {
       const userData = await this.fetcher.activityData(this.userId);
-      const userActivity = userData.sessions;
+      const userActivity = new UserActivity({userId:this.userId, sessions:userData.sessions})
       return userActivity;
     } catch (error) {
       console.error("Error fetching activityData:", error);
@@ -68,9 +66,9 @@ export class DataController {
       const userData = await this.fetcher.averageSessionsData(
         this.userId
       );
-      const averageSessions = userData.sessions;
-
-      return averageSessions;
+      const userAverageSessions = new UserAverageSessions({userId:this.userId, sessions:userData.sessions})
+      
+      return userAverageSessions;
     } catch (error) {
       console.error("Error fetching data from average sessions:", error);
       throw error;
@@ -80,10 +78,13 @@ export class DataController {
   async getUserStats() {
     try {
       const performance = await this.fetcher.performanceData(this.userId);
+      const userPerformance = new UserPerformance({userId: this.userId, kind: performance.data.kind,
+        data: performance.data.data})
+              
 
-      return performance.data;
+      return userPerformance;
     } catch (error) {
-      console.error("Error fetching data from average sessions:", error);
+      console.error("Error fetching data from performance sessions:", error);
       throw error;
     }
   }

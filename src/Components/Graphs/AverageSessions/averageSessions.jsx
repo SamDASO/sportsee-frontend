@@ -5,14 +5,7 @@ import PropTypes from "prop-types";
 import SessionTooltip from "./tooltip.jsx";
 
 const AverageSession = ({ data, isLoading, error, refresh}) => {
-  //state
-
-  const dayNames = ["", "L", "M", "M", "J", "V", "S", "D"];
-  const getDayName = (day) => {
-    return dayNames[day];
-  };
-
-
+  
   //render
 
   return (
@@ -51,7 +44,6 @@ const AverageSession = ({ data, isLoading, error, refresh}) => {
 
           <XAxis
             dataKey="day"
-            tickFormatter={getDayName}
             axisLine={false}
             tickLine={false}
             className={style.xAxis}
@@ -66,7 +58,7 @@ const AverageSession = ({ data, isLoading, error, refresh}) => {
 AverageSession.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
-      day: PropTypes.number.isRequired,
+      day: PropTypes.string.isRequired,
       sessionLength: PropTypes.number.isRequired,
     })
   ),

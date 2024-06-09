@@ -14,11 +14,7 @@ import RefreshBtn from "../../Refresh/refreshBtn";
 
 const Activity = ({ activityData, isLoading, error, refresh}) => {
   //state 
-  const formatXAxisTick = (value) => {
-    const day = value.split("-")[2];
-    return parseInt(day, 10).toString();
-  };
-
+  
   const hideTickNumbers = () => null;
 
   //render
@@ -55,7 +51,7 @@ const Activity = ({ activityData, isLoading, error, refresh}) => {
           }}
         >
           <CartesianGrid vertical={false} strokeDasharray="2 2" />
-          <XAxis dataKey="day" tickFormatter={formatXAxisTick} />
+          <XAxis dataKey="day" />
           <YAxis
             orientation="right"
             stroke="#9B9EAC"

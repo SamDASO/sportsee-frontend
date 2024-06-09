@@ -46,7 +46,7 @@ export class ApiFetch {
       const response = await axios.get(
         `${this.apiUrl}/user/${userId}/performance`
       );
-      return response.data.data;
+      return response.data;
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error;
