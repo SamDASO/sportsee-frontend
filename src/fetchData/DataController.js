@@ -53,7 +53,7 @@ export class DataController {
   async getUserActivity() {
     try {
       const userData = await this.fetcher.activityData(this.userId);
-      const userActivity = new UserActivity({userId:this.userId, sessions:userData.sessions})
+      const userActivity = new UserActivity(this.userId, userData.sessions)
       return userActivity;
     } catch (error) {
       console.error("Error fetching activityData:", error);
@@ -66,7 +66,7 @@ export class DataController {
       const userData = await this.fetcher.averageSessionsData(
         this.userId
       );
-      const userAverageSessions = new UserAverageSessions({userId:this.userId, sessions:userData.sessions})
+      const userAverageSessions = new UserAverageSessions(this.userId, userData.sessions)
       
       return userAverageSessions;
     } catch (error) {
@@ -78,9 +78,7 @@ export class DataController {
   async getUserStats() {
     try {
       const performance = await this.fetcher.performanceData(this.userId);
-      const userPerformance = new UserPerformance({userId: this.userId, kind: performance.data.kind,
-        data: performance.data.data})
-              
+      const userPerformance = new UserPerformance(this.userId, performance.data) 
 
       return userPerformance;
     } catch (error) {

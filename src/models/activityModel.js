@@ -8,7 +8,7 @@ export default class UserActivity {
      * @param userId number
      * @param sessions any
      */
-    constructor({userId, sessions}) {
+    constructor(userId, sessions) {
         this.id = userId;
         this.activity = sessions?.map((session) => ({
             day: this.formatDay(session.day),

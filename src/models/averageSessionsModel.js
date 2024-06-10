@@ -9,7 +9,7 @@ export default class UserAverageSessions {
      * @param userId number
      * @param sessions any
      */
-    constructor({userId, sessions}) {
+    constructor(userId, sessions) {
         this.id = userId;
         this.averageSession = sessions.map((session, index) => ({
             day: this.getDayName(session.day),
