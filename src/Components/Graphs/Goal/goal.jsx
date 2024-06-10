@@ -5,6 +5,8 @@ import { PieChart, Pie, ResponsiveContainer, Cell } from "recharts";
 import PropTypes from "prop-types";
 
 const Goal = ({ goalScore, isLoading, error, refresh }) => {
+
+  //state
   const data = [
     { name: "notReached", value: 1 - goalScore, fill: "transparent" },
     {

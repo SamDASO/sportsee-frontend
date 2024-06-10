@@ -1,15 +1,16 @@
 /**
- * class for the performance datas
+ * class for the performance data
  */
 
-export default class PerformanceInterface {
+export default class UserPerformance {
     /**
      * format fetch performance data
-     * @param {Object}
+     * @param userId number
+     * @param performance any
      */
-    constructor({userId, data}) {
+    constructor(userId, performance) {
         this.id = userId;
-        this.kind = kind;
+        this.kind = performance.kind;
         const kindFr = {
                 cardio: 'Cardio',
                 energy: 'Énergie',
@@ -19,10 +20,10 @@ export default class PerformanceInterface {
                 intensity: 'Intensité',
               }
               
-        this.performance = data.map((d) => ({
+        this.performance = performance.data.map((d) => ({
             ...d,
             value: d.value,
-            kind: kindFr[kind[d.kind]]
+            kind: kindFr[this.kind[d.kind]]
         }))
     }
 }

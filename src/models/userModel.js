@@ -2,16 +2,19 @@
  * class for the user data
  */
 
-export default class UserInterface {
+export default class UserData {
     /**
      * format fetch user data
-     * @param {Object}
+     * @param userId number
+     * @param data any
      */
-    constructor(id, data) {
-        this.id = data.id;
+    constructor(userId, data) {
+        this.id = userId;
         this.firstName = data.userInfos.firstName;
         this.todayScore = data.todayScore || data.score;
         this.keyData = data.keyData;
         
     }
+
+      
 }

@@ -11,26 +11,7 @@ import {
 import PropTypes from "prop-types";
 
 const Stats = ({ statsData, isLoading, error, refresh }) => {
-  const transformData = () => {
-    if (!statsData) return [];
-
-    const statsSubject = {
-      1: "Cardio",
-      2: "Energie",
-      3: "Endurance",
-      4: "Force",
-      5: "Vitesse",
-      6: "Intensité",
-    };
-
-    return statsData.map((item) => ({
-      ...item,
-      kind: statsSubject[item.kind],
-    }));
-  };
-
-  const transformedData = transformData();
-
+  
   return (
     <div className={style.component}>
       {isLoading ? (
@@ -41,7 +22,7 @@ const Stats = ({ statsData, isLoading, error, refresh }) => {
               <RefreshBtn onclick={refresh}/></div>
             ) : (
       <ResponsiveContainer width="100%" height="100%">
-        <RadarChart cx="50%" cy="50%" outerRadius="50%" data={transformedData}>
+        <RadarChart cx="50%" cy="50%" outerRadius="50%" data={statsData}>
           <PolarGrid stroke="#FFFFFF" />
           <PolarAngleAxis
             dataKey="kind"
@@ -68,7 +49,7 @@ Stats.propTypes = {
   statsData: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.number,
-      kind: PropTypes.number,
+      kind: PropTypes.string,
     })
   ),
   isLoading: PropTypes.bool,

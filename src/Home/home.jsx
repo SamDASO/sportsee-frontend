@@ -9,7 +9,7 @@ import Stats from "../Components/Graphs/Stats/stats";
 import Goal from "../Components/Graphs/Goal/goal";
 import SummaryElement from "../Components/SummaryElement/element";
 import useDisplay from "../Components/CustomHook/useDisplay";
-import UserInterface from "../models/userInterface";
+import UserInterface from "../models/userModel";
 
 
 //img
@@ -105,7 +105,7 @@ function Home() {
             <span className={style.nameError}>Erreur chargement du nom...</span>
             <RefreshBtn onClick={refreshName}/></div>
           ) : (
-            userName && <span className={style.name}> {userName}</span>
+            userName && <span className={style.name}> {userName?.firstName}</span>
           )}
         </h1>
 
@@ -115,17 +115,17 @@ function Home() {
       </div>
       <section className={style.dashboard}>
         <div className={style.graphContainer}>
-          <Activity id={userId} activityData={userActivity} isLoading={activityLoading} error={activityError} refresh={refreshActivity}/>
+          <Activity activityData={userActivity?.activity} isLoading={activityLoading} error={activityError} refresh={refreshActivity}/>
           
 
           <div className={style.graphs}>
-            <AverageSession data={averageSessions} isLoading={sessionsLoading} error={sessionsError} refresh={refreshSessions}/>
+            <AverageSession data={averageSessions?.averageSession} isLoading={sessionsLoading} error={sessionsError} refresh={refreshSessions}/>
             
 
-            <Stats statsData={statsData} isLoading={statsLoading} error={statsError} refresh={refreshStats}/>
+            <Stats statsData={statsData?.performance} isLoading={statsLoading} error={statsError} refresh={refreshStats}/>
             
 
-            <Goal goalScore={goalScore} isLoading={goalLoading} error={goalError} refresh={refreshGoal}/>
+            <Goal goalScore={goalScore?.todayScore} isLoading={goalLoading} error={goalError} refresh={refreshGoal}/>
             
           </div>
         </div>
