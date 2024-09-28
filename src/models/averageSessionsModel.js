@@ -11,7 +11,7 @@ export default class UserAverageSessions {
      */
     constructor(userId, sessions) {
         this.id = userId;
-        this.averageSession = sessions.map((session, index) => ({
+        this.averageSession = sessions.map((session) => ({
             day: this.getDayName(session.day),
             sessionLength: session.sessionLength,
         }))

@@ -78,7 +78,7 @@ export class DataController {
   async getUserStats() {
     try {
       const performance = await this.fetcher.performanceData(this.userId);
-      const userPerformance = new UserPerformance(this.userId, performance.data) 
+      const userPerformance = new UserPerformance(this.userId, performance) 
 
       return userPerformance;
     } catch (error) {
